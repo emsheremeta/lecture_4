@@ -50,6 +50,16 @@ export const Title = styled.p`
   font-size: large;
   text-align: center;
 `;
+
+export const ErrorMessage = styled.p`
+  font-family: 'Sans Serif';
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`;
 export const TripInfo = styled.div`
   background-color: beige;
   display: flex;
@@ -71,6 +81,7 @@ export const Button = styled.button`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-left: 10px;
+  cursor: pointer;
 `;
 export const Link = styled(NavLink)`
   font-family: 'Sans Serif';

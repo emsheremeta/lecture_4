@@ -6,8 +6,10 @@ import {
   Button,
   Link,
 } from 'pages/Main Page/MainPage.styled';
+import { useLocation } from 'react-router-dom';
 
 export default function Trip({ data }) {
+  const location = useLocation();
   return (
     <li key={data.id}>
       <Image src={data.image} alt="trip" />
@@ -17,9 +19,10 @@ export default function Trip({ data }) {
         <p> DURATION: {data.duration} days</p>
       </TripInfo>
       <TripPrice>PRICE: {data.price}$</TripPrice>
-      <Button>
-        <Link to="/trip/:tripId ">Discover a trip</Link>
-      </Button>
+
+      <Link to={`/trip/${data.id}`} state={{ from: location }}>
+        <Button>Discover a trip</Button>
+      </Link>
     </li>
   );
 }
