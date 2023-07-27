@@ -36,7 +36,7 @@ export const Text = styled.div`
 
 export const InputField = styled.input`
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -47,9 +47,10 @@ export const Button = styled.button`
   color: #fff;
   padding: 10px;
   margin-bottom: 10px;
-  width: 109%;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-left: 10px;
 `;
 
 export const TextInfo = styled.p`
