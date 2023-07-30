@@ -30,3 +30,13 @@ export const TripDesc = styled.p`
   font-family: 'Sans Serif';
   font-weight: 500;
 `;
+export const Button = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+`;

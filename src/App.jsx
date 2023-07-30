@@ -4,6 +4,7 @@ import SignIn from 'pages/Sign in/SignIn';
 import NotFound from 'components/NotFound';
 import MainPage from 'pages/Main Page/MainPage';
 import Trip from 'pages/Trip/Trip';
+import Bookings from 'pages/Bookings/Bookings';
 
 export const App = () => {
   return (
@@ -13,7 +14,7 @@ export const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/bookings " element={''} />
+        <Route path="/bookings" element={<Bookings />} />
         <Route path="/trip/:tripId" element={<Trip />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
