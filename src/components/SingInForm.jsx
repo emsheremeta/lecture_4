@@ -47,7 +47,7 @@ export default function SignInForm() {
       //   'https://binary-travel-app.xyz/api/v1/auth/sign-in',
       //   formData
       // );
-      // console.log(response.data);
+      //
     } catch (error) {
       console.error(error);
       toast.error('Incorrect email & password', {

@@ -1,6 +1,5 @@
 export const getTrips = state => state.trips;
-
-export const getFilter = state => state.filter.filter;
+export const getBookings = state => state.trips.trips.bookings;
 
 export const getIsLoading = state => state.isLoading;
 

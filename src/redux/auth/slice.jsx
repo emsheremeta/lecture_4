@@ -18,10 +18,10 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     [logIn.fulfilled](state, action) {
-      console.log('action', action);
-      state.user = action.payload.data.user;
-      state.token = action.payload.data.token;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
       state.isLoggedIn = true;
+      localStorage.setItem('token', action.payload.token);
     },
     [logOut.fulfilled](state) {
       state.user = { name: null, email: null };
@@ -38,6 +38,7 @@ const authSlice = createSlice({
     },
     [refreshUser.rejected](state) {
       state.isRefreshing = false;
+      state.isLoggedIn = false;
     },
   },
 });

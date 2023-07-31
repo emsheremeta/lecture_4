@@ -14,6 +14,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrips } from 'redux/selectors';
 import { fetchTrips } from 'redux/operations';
+import { Dna } from 'react-loader-spinner';
+import { useAuth } from 'hooks/useAuth';
 
 export default function MainPage() {
   const apiTrips = useSelector(getTrips);
@@ -21,10 +23,8 @@ export default function MainPage() {
   const [value, setValue] = useState('duration');
   const [level, setLevel] = useState('level');
   const [search, setSearch] = useState('');
-  console.log(apiTrips.trips.items);
 
   useEffect(() => {
-    console.log('Fetch API Trips');
     dispatch(fetchTrips());
   }, [dispatch]);
 
@@ -40,7 +40,6 @@ export default function MainPage() {
     setLevel(e.target.value);
   };
   const getFilteredTrips = () => {
-    console.log(trips, apiTrips.trips.items);
     let filteredTrips = apiTrips.trips.items.filter(el =>
       el.title.toLowerCase().startsWith(search.toLowerCase())
     );
@@ -57,7 +56,18 @@ export default function MainPage() {
     return filteredTrips;
   };
 
-  return (
+  const { isRefreshing } = useAuth();
+
+  return isRefreshing ? (
+    <Dna
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="dna-loading"
+      wrapperStyle={{}}
+      wrapperClass="dna-wrapper"
+    />
+  ) : (
     <div>
       <Wrapper>
         <Header />

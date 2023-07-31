@@ -2,7 +2,6 @@ import { Form } from 'pages/Sign in/SignIn.styled';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { InputField, Button, TextInfo } from 'pages/Sign in/SignIn.styled';
-// import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { register } from 'redux/auth/operations';
@@ -19,12 +18,11 @@ export default function SignUpForm() {
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(formData);
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(formData);
+
     if (formData.password.length < 3 || formData.password.length > 20) {
       toast.error('Please add the correct password', {
         position: 'top-right',
@@ -39,11 +37,6 @@ export default function SignUpForm() {
     }
     try {
       dispatch(register(formData));
-      // const response = await axios.post(
-      //   'https://binary-travel-app.xyz/api/v1/auth/sign-up',
-      //   formData
-      // );
-      // console.log(response.data);
     } catch (error) {
       console.error(error);
       toast.error('Seems like email already exist.', {

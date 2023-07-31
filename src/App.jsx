@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { fetchTrips } from 'redux/operations';
 import { useEffect } from 'react';
 import { useAuth } from 'hooks/useAuth';
 import { refreshUser } from 'redux/auth/operations';
@@ -10,19 +9,13 @@ import NotFound from 'components/NotFound';
 import MainPage from 'pages/Main Page/MainPage';
 import Trip from 'pages/Trip/Trip';
 import Bookings from 'pages/Bookings/Bookings';
-// import { Layout } from 'components/Layout';
 import { RestrictedRoute } from 'components/RestrictedRoute';
 import { PrivateRoute } from 'components/PrivateRoute';
 import Home from 'pages/Home/Home';
+import { Dna } from 'react-loader-spinner';
 
 export const App = () => {
   const dispatch = useDispatch();
-  console.log('start');
-
-  // useEffect(() => {
-  //   console.log('PA - FC');
-  //   dispatch(fetchContacts());
-  // }, [dispatch]);
 
   const { isRefreshing } = useAuth();
 
@@ -31,12 +24,18 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <b>Refreshing user...</b>
+    <Dna
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="dna-loading"
+      wrapperStyle={{}}
+      wrapperClass="dna-wrapper"
+    />
   ) : (
     <div>
       <Routes>
         <Route index element={<Home />} />
-        {/* <Route path="/main" element={<MainPage />} /> */}
         <Route
           path="/main"
           element={
@@ -55,7 +54,6 @@ export const App = () => {
             <RestrictedRoute redirectTo="/main" component={<SignIn />} />
           }
         />
-        {/* <Route path="/sign-in" element={<SignIn />} /> */}
         <Route
           path="/bookings"
           element={
@@ -66,9 +64,7 @@ export const App = () => {
           path="/trip/:tripId"
           element={<PrivateRoute redirectTo="/sign-in" component={<Trip />} />}
         />
-        {/* <Route path="/trip/:tripId" element={<Trip />} /> */}
         <Route path="*" element={<NotFound />} />
-        {/* </Route> */}
       </Routes>
     </div>
   );

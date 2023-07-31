@@ -4,7 +4,6 @@ import Header from 'pages/Header/Header';
 import Footer from 'pages/Footer/Footer';
 
 export default function SignIn() {
-  console.log('signin');
   return (
     <div>
       <Header />

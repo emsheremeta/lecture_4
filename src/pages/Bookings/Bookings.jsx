@@ -2,25 +2,55 @@ import Header from 'pages/Header/Header';
 import Footer from 'pages/Footer/Footer';
 import Booking from '../../components/Booking';
 import { NoBooking } from './Bookings.styled';
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteBooking, fetchBookings } from 'redux/operations';
+import { getBookings } from 'redux/selectors';
+import { ToastContainer, toast } from 'react-toastify';
+import { useLocation } from 'react-router-dom';
 
 export default function Bookings() {
-  const [bookings, setBookings] = useState(
-    JSON.parse(localStorage.getItem('BookingInfo'))
-  );
+  const dispatch = useDispatch();
+  const bookings = useSelector(getBookings);
+  const location = useLocation();
 
-  console.log(bookings);
+  useEffect(() => {
+    dispatch(fetchBookings());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (location.state?.from) {
+      toast.success('Trip added!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+    }
+  }, [location]);
 
   const deleteTrip = id => {
-    console.log('delete trip', id);
-    const newBookings = bookings.filter(e => e.id.toString() !== id);
-    setBookings(newBookings);
-    localStorage.setItem('BookingInfo', JSON.stringify(newBookings));
+    dispatch(deleteBooking(id));
+    toast.success('Trip deleted!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    });
   };
 
   return (
     <div>
       <Header />
+      <ToastContainer />
       {bookings?.length === 0 && (
         <NoBooking>Sorry, no bookings found</NoBooking>
       )}
