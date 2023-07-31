@@ -5,7 +5,7 @@ export default function Header() {
     <div>
       <HeaderWrapper>
         <p>
-          <LogoLink to="/">Travel App</LogoLink>
+          <LogoLink to="/main">Travel App</LogoLink>
         </p>
         <div>
           <Link to="/sign-in">
