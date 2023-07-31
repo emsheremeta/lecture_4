@@ -7,10 +7,10 @@ export default function Booking({ data, deleteTrip }) {
 
   return (
     <BookingWrapper>
-      <h2>{data.title}</h2>
-      <p>GUEST NUMBER: {data.guestNumber}</p>
+      <h2>{data.trip.title}</h2>
+      <p>GUEST NUMBER: {data.guests}</p>
       <p>DATE: {data.date}</p>
-      <p>PRICE:{data.price}$</p>
+      <p>PRICE:{data.totalPrice}$</p>
       <Button onClick={handleDelete} id={data.id}>
         Delete Trip
       </Button>

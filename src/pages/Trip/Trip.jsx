@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import trips from '../../trips.json';
 import {
   Image,
   Wrapper,
@@ -13,16 +12,21 @@ import Header from 'pages/Header/Header';
 import Footer from 'pages/Footer/Footer';
 import ModalWindow from 'pages/Modal/Modal';
 import NotFound from 'components/NotFound';
+import { useSelector } from 'react-redux';
+import { getTrips } from 'redux/selectors';
 
 export default function Trip() {
+  const apiTrips = useSelector(getTrips);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const { tripId } = useParams();
-  const trip = trips.filter(t => t.id === tripId)[0];
+  const trip = apiTrips.trips.items.filter(t => t.id === tripId)[0];
 
   if (!trip) {
     return <NotFound />;
   }
+
   //modal
 
   const openModal = () => {

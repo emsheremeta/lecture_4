@@ -6,35 +6,39 @@ import {
   TotalPrice,
   CloseBtn,
 } from './Modal.styled';
-import trips from '../../trips.json';
 import NotFound from 'components/NotFound';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTrips } from 'redux/selectors';
+import { addBooking } from 'redux/operations';
+import { selectUser } from 'redux/auth/selectors';
 
 ModalWindowStyled.setAppElement('#root');
 
 export default function ModalWindow({ requestOnClose, isOpen, tripId }) {
+  const trips = useSelector(getTrips);
+  const user = useSelector(selectUser);
+
+  const dispatch = useDispatch();
+
   const [guestNum, setGuestNum] = useState(1);
   const [date, setDate] = useState('Date');
   const [allowBooking, setAllowBooking] = useState(false);
 
   const location = useLocation();
-  const trip = trips.filter(t => t.id === tripId)[0];
+  const trip = trips.trips.items.filter(t => t.id === tripId)[0];
   if (!trip) {
     return <NotFound />;
   }
   const saveToLocalStr = () => {
-    let bookings = JSON.parse(localStorage.getItem('BookingInfo')) ?? [];
-    console.log('old', bookings);
-    bookings.push({
-      id: Date.now(),
-      title: trip.title,
-      guestNumber: guestNum,
+    const booking = {
+      tripId: tripId,
+      userId: user.id,
+      guests: guestNum,
       date: date,
-      price: trip.price * guestNum,
-    });
-    console.log('new', bookings);
-
-    localStorage.setItem('BookingInfo', JSON.stringify(bookings));
+    };
+    dispatch(addBooking(booking));
+    // alert('success');
   };
 
   const handleGuestNum = e => {

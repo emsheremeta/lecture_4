@@ -34,3 +34,9 @@ export const LogoLink = styled(Link)`
   margin-bottom: 20px;
   cursor: pointer;
 `;
+export const WelcomeText = styled.p`
+  font-family: 'Sans Serif';
+  font-weight: bold;
+  font-size: 25px;
+  color: white;
+`;

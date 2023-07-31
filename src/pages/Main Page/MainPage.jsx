@@ -10,12 +10,23 @@ import {
   Wrapper,
   ErrorMessage,
 } from './MainPage.styled';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTrips } from 'redux/selectors';
+import { fetchTrips } from 'redux/operations';
+import { Dna } from 'react-loader-spinner';
+import { useAuth } from 'hooks/useAuth';
 
 export default function MainPage() {
+  const apiTrips = useSelector(getTrips);
+  const dispatch = useDispatch();
   const [value, setValue] = useState('duration');
   const [level, setLevel] = useState('level');
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    dispatch(fetchTrips());
+  }, [dispatch]);
 
   const handleSearch = e => {
     setSearch(e.target.value);
@@ -28,8 +39,8 @@ export default function MainPage() {
   const handleChangeLevel = e => {
     setLevel(e.target.value);
   };
-  const getFilteredTrips = trips => {
-    let filteredTrips = trips.filter(el =>
+  const getFilteredTrips = () => {
+    let filteredTrips = apiTrips.trips.items.filter(el =>
       el.title.toLowerCase().startsWith(search.toLowerCase())
     );
     if (level !== 'level') {
@@ -45,7 +56,18 @@ export default function MainPage() {
     return filteredTrips;
   };
 
-  return (
+  const { isRefreshing } = useAuth();
+
+  return isRefreshing ? (
+    <Dna
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="dna-loading"
+      wrapperStyle={{}}
+      wrapperClass="dna-wrapper"
+    />
+  ) : (
     <div>
       <Wrapper>
         <Header />
